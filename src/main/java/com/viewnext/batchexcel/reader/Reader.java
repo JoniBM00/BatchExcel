@@ -15,6 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.context.annotation.Bean;
+import org.springframework.core.io.PathResource;
 import org.springframework.stereotype.Component;
 
 import com.viewnext.batchexcel.model.Producto;
@@ -22,7 +23,7 @@ import com.viewnext.batchexcel.model.Producto;
 @Component
 public class Reader {
 
-	private static final String PATH = "terminales.xlsx";
+	private static final String PATH = "./../ficheroEntrada";
 	private static final Logger log = LoggerFactory.getLogger(Reader.class);
 
 	/**
@@ -35,7 +36,11 @@ public class Reader {
 		log.info(" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 		log.info("LEYENDO XLSX CONVERGENTES");
 		File excelFile = new File(PATH);
-		try (FileInputStream fis = new FileInputStream(excelFile)) {
+
+		excelFile.mkdir();
+
+		try (FileInputStream fis = new FileInputStream(
+				new PathResource("./../ficheroEntrada/terminales.xlsx").getFile())) {
 
 			ArrayList<Producto> lProductos = new ArrayList<>();
 
@@ -104,7 +109,7 @@ public class Reader {
 	 * @return Un ItemReader de Producto
 	 */
 	@Bean
-	public ItemReader<Producto> excelItemReader() {
+	ItemReader<Producto> excelItemReader() {
 		try {
 			return new ItemReader<>() {
 				private List<Producto> lProductos = readExcelFile();

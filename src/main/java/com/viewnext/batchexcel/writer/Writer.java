@@ -23,7 +23,8 @@ public class Writer {
 		FlatFileItemWriter<Producto> writer = new FlatFileItemWriter<>();
 		writer.setShouldDeleteIfExists(true);
 		writer.setEncoding("UTF-8");
-		writer.setResource(new PathResource("terminalesNuevo.csv"));
+
+		writer.setResource(new PathResource("./../ficheroSalida/terminalesNuevo.csv"));
 		writer.setAppendAllowed(true);
 		DelimitedLineAggregator<Producto> aggregator = new DelimitedLineAggregator<>();
 		aggregator.setDelimiter(";");
@@ -31,6 +32,7 @@ public class Writer {
 		extractor.setNames(new String[] { "id", "name", "descripcion", "code" });
 		aggregator.setFieldExtractor(extractor);
 		writer.setLineAggregator(aggregator);
+
 		return writer;
 
 	}
