@@ -24,7 +24,7 @@ public class Writer {
 		writer.setShouldDeleteIfExists(true);
 		writer.setEncoding("UTF-8");
 
-		writer.setResource(new PathResource("./../ficheroSalida/terminalesNuevo.csv"));
+		writer.setResource(new PathResource("./../ficheroSalida/terminales.csv"));
 		writer.setAppendAllowed(true);
 		DelimitedLineAggregator<Producto> aggregator = new DelimitedLineAggregator<>();
 		aggregator.setDelimiter(";");
